@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Department } from 'src/app/models/department';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
   selector: 'app-employee-create',
@@ -12,22 +13,25 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 export class EmployeeCreateComponent implements OnInit {
 
   datepickerConfig!: Partial<BsDatepickerConfig>
-
-  fullname = '';
-  email = '';
-  gender = '';
-  phone = '';
-  isActive!: boolean;
-  dateOfBirth = '';
-  photo = '';
-  contactPreference: string[] = ['Email', 'Phone', 'Whatsapp', 'Telegram'];
-  department = ''
   previewPhotos: boolean = false;
   departments: Department[] = [
     { id: '1', name: 'Software Development' },
     { id: '2', name: 'Digital Marketing' },
     { id: '3', name: 'HR' },
   ]
+
+  employee: Employee = {
+    id: null!,
+    fullname: null!,
+    gender: null!,
+    email: null!,
+    phone: null!,
+    contactPreferences: null!,
+    dateOfBirth: null!,
+    department: null!,
+    isActive: null!,
+    photo: null!,
+  }
 
 
   constructor() {
@@ -37,15 +41,15 @@ export class EmployeeCreateComponent implements OnInit {
   datePickerColor() {
     this.datepickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
-      minDate: new Date(1945, 0, 1),
+      showWeekNumbers: true,
       dateInputFormat: 'DD/MM/YYYY',
     })
   }
 
   ngOnInit(): void { }
 
-  saveEmployee(empForm: NgForm) {
-    console.log(empForm.value);
+  saveEmployee(employee: Employee): void {
+    console.log(employee);
   }
 
   togglePhotoPreview(){
