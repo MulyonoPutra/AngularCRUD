@@ -18,10 +18,10 @@
       <div class="mb-3">
         <div class="form-group" [class.has.error]="email.invalid && email.touched">
           <label for="email" class="control-label">Email address</label>
-          <input required [email]="employee.email != ''" type="email" class="form-control" id="email" [(ngModel)]="employee.email" name="email"
+          <input required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" type="email" class="form-control" id="email" [(ngModel)]="employee.email" name="email"
             placeholder="email" #email="ngModel">
             <span class="help-block" *ngIf="email.errors?.required && email.touched">Email is required!</span>
-            <span class="help-block" *ngIf="email.errors?.email && email.touched">Email is invalid!</span>
+            <span class="help-block" *ngIf="email.errors?.pattern && email.touched">Email is invalid!</span>
         </div>
       </div>
       <div class="mb-3">
