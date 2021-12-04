@@ -3,7 +3,6 @@
     <div class="card-header">Employee Create</div>
     <div class="card-body">
       <div class="mb-3">
-
         <!-- Full name -->
         <div class="form-group" [class.has.error]="fullname.invalid && fullname.touched">
           <label>Full name</label>
@@ -123,12 +122,16 @@
       </div>
       <br>
       <!-- Department -->
-      <div class="form-group">
+      <div class="form-group" [class.has-error]="department.invalid && department.touched">
         <label for="department">Department</label>
         <select class="form-select" aria-label="Default select example" name="department"
-          [(ngModel)]="employee.department">
-          <option *ngFor="let dept of departments" [value]="dept.name">{{dept.name}}</option>
+          [(ngModel)]="employee.department" required #department="ngModel">
+          <option disabled [ngValue]="null">Select Department</option>
+          <option *ngFor="let dept of departments" [ngValue]="dept.name">{{dept.name}}</option>
         </select>
+          <span class="help-block" *ngIf="department.touched && department.invalid">
+            Department is required
+          </span>
       </div>
       <br>
       <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Save</button>
