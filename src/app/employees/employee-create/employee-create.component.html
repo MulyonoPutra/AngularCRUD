@@ -55,22 +55,25 @@
         </div>
       </div>
       <br>
-      <div class="form-group">
+      <div class="form-group" [class.has-error]="gender.invalid">
         <div class="form-control">
           <div class="form-check">
             <label class="form-check-label" for="gender">
-              <input class="form-check-input" value="male" type="radio" name="gender" id="gender" [(ngModel)]="employee.gender">
+              <input class="form-check-input" #gender="ngModel" value="male" type="radio" name="gender" id="gender" [(ngModel)]="employee.gender">
               Male
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label" for="gender">
-              <input class="form-check-input" value="female" type="radio" name="gender" id="gender"
+              <input class="form-check-input" #gender="ngModel" value="female" type="radio" name="gender" id="gender"
                 [(ngModel)]="employee.gender">
               Female
             </label>
           </div>
         </div>
+          <span class="help-block" *ngIf="gender.invalid">
+            Gender is required
+          </span>
       </div>
       <br>
       <div class="form-group">
