@@ -3,35 +3,17 @@
     <div class="card-header">Employee Create</div>
     <div class="card-body">
       <div class="mb-3">
+
+        <!-- Full name -->
         <div class="form-group" [class.has.error]="fullname.invalid && fullname.touched">
           <label>Full name</label>
-          <input
-          required type="text"
-          class="form-control"
-          #fullname="ngModel"
-          [(ngModel)]="employee.fullname"
-          name="fullname">
+          <input required type="text" class="form-control" #fullname="ngModel" [(ngModel)]="employee.fullname"
+            name="fullname">
           <span class="help-block" *ngIf="fullname.invalid && fullname.touched">Fullname is required!</span>
         </div>
       </div>
 
-      <div class="mb-3">
-        <div class="form-group" [class.has.error]="email.invalid && email.touched">
-          <label for="email" class="control-label">Email address</label>
-          <input required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" type="email" class="form-control" id="email" [(ngModel)]="employee.email" name="email"
-            placeholder="email" #email="ngModel">
-            <span class="help-block" *ngIf="email.errors?.required && email.touched">Email is required!</span>
-            <span class="help-block" *ngIf="email.errors?.pattern && email.touched">Email is invalid!</span>
-        </div>
-      </div>
-      <div class="mb-3">
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input required type="phone" class="form-control" id="phone" [(ngModel)]="employee.phone" name="phone"
-            placeholder="phone">
-        </div>
-      </div>
-
+      <!-- Contact Preference -->
       <div class="form-group">
         <label class="form-check-label" for="contactPreference">
           Contact Preference
@@ -41,7 +23,7 @@
             <label class="form-check-label" for="contactPreference">
               Email
               <input class="form-check-input ml-3" value="email" type="radio" name="contactPreference"
-                id="contactPreference" [(ngModel)]="employee.contactPreferences">
+                #contactPreference="ngModel" id="contactPreference" [(ngModel)]="employee.contactPreferences">
             </label>
           </div>
 
@@ -55,11 +37,34 @@
         </div>
       </div>
       <br>
+
+      <!-- Email address -->
+      <div class="mb-3">
+        <div class="form-group" [class.has.error]="email.invalid">
+          <label for="email" class="control-label">Email address</label>
+          <input [required]="contactPreference.value=='email'"
+            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" type="email" class="form-control" id="email"
+            [(ngModel)]="employee.email" name="email" placeholder="email" #email="ngModel">
+          <span class="help-block" *ngIf="email.errors?.required">Email is required!</span>
+          <span class="help-block" *ngIf="email.errors?.pattern">Email is invalid!</span>
+        </div>
+      </div>
+      <div class="mb-3" [class.has.error]="phone.invalid">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input [required]="contactPreference.value=='phone'" type="phone" class="form-control" id="phone"
+            [(ngModel)]="employee.phone" name="phone" placeholder="phone" #phone="ngModel">
+        </div>
+        <span class="help-block" *ngIf="phone.errors?.required">Phone Number is required!</span>
+      </div>
+
+      <!-- Gender -->
       <div class="form-group" [class.has-error]="gender.invalid">
         <div class="form-control">
           <div class="form-check">
             <label class="form-check-label" for="gender">
-              <input class="form-check-input" #gender="ngModel" value="male" type="radio" name="gender" id="gender" [(ngModel)]="employee.gender">
+              <input class="form-check-input" #gender="ngModel" value="male" type="radio" name="gender" id="gender"
+                [(ngModel)]="employee.gender">
               Male
             </label>
           </div>
@@ -71,21 +76,27 @@
             </label>
           </div>
         </div>
-          <span class="help-block" *ngIf="gender.invalid">
-            Gender is required
-          </span>
+        <span class="help-block" *ngIf="gender.invalid">
+          Gender is required
+        </span>
       </div>
       <br>
-      <div class="form-group">
+      <!-- is Active -->
+      <div class="form-group" [class.has-error]="isActive.invalid && isActive.touched">
         <div class="form-control">
           <label class="form-check-label" for="isActive">
-            <input class="form-check-input" type="checkbox" value="" id="isActive" name="isActive"
-              [(ngModel)]="employee.isActive">
+            <input class="form-check-input" type="checkbox" value="" id="isActive" name="isActive" #isActive="ngModel"
+              [(ngModel)]="employee.isActive" [required]="employee.isActive==null">
             is Active
           </label>
         </div>
+          <span class="help-block" *ngIf="isActive.errors?.required && isActive.touched">
+            Is Active is required
+          </span>
       </div>
       <br>
+
+      <!-- Date of Birth -->
       <div class="form-group col-md-5">
         <label for="dateOfBirth">
           Date of Birth
@@ -94,6 +105,7 @@
           [(ngModel)]="employee.dateOfBirth" [bsConfig]="datepickerConfig">
       </div>
 
+      <!-- Photo -->
       <div class="form-group">
         <label for="photo">
           Photo
@@ -109,10 +121,12 @@
       <div class="form-group">
         <img src="photo" alt="photo" height="200" width="200" *ngIf="previewPhotos">
       </div>
-
+      <br>
+      <!-- Department -->
       <div class="form-group">
-        <label for="department"></label>
-        <select class="form-select" aria-label="Default select example" name="department" [(ngModel)]="employee.department">
+        <label for="department">Department</label>
+        <select class="form-select" aria-label="Default select example" name="department"
+          [(ngModel)]="employee.department">
           <option *ngFor="let dept of departments" [value]="dept.name">{{dept.name}}</option>
         </select>
       </div>
