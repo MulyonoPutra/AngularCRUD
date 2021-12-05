@@ -30,6 +30,8 @@ export class EmployeeCreateComponent implements OnInit {
     department: 'select',
     isActive: null!,
     photo: null!,
+    password: null!,
+    confirmPassword: null!,
   }
 
 

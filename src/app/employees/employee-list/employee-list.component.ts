@@ -19,6 +19,8 @@ export class EmployeeListComponent implements OnInit {
       department: 'Software Development',
       isActive: true,
       photo: 'assets/images/mark.png',
+      password: 'password',
+      confirmPassword: 'confirmPassword'
     },
     {
       id: '1',
@@ -31,6 +33,8 @@ export class EmployeeListComponent implements OnInit {
       department: 'Digital Marketing',
       isActive: true,
       photo: 'assets/images/devi.png',
+      password: 'password',
+      confirmPassword: 'confirmPassword'
     },
   ];
 
