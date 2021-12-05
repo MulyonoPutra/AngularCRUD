@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SelectRequiredValidatorDirective } from './shared/select-required-validator.directive';
 import { ConfirmEqualsValidatorDirective } from './shared/confirm-equals-validator.directive';
+import { EmployeeService } from './services/employee.service';
 @NgModule({
   declarations: [AppComponent, EmployeeListComponent, EmployeeCreateComponent, SelectRequiredValidatorDirective, ConfirmEqualsValidatorDirective],
   imports: [
@@ -21,7 +22,7 @@ import { ConfirmEqualsValidatorDirective } from './shared/confirm-equals-validat
     FormsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
