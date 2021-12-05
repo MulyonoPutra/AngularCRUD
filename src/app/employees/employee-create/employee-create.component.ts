@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Department } from 'src/app/models/department';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Employee } from 'src/app/models/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-create',
@@ -35,7 +37,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
 
-  constructor() {
+  constructor(private router: Router, private employeeService: EmployeeService) {
     this.datePickerColor();
   }
 
@@ -49,8 +51,9 @@ export class EmployeeCreateComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  saveEmployee(employee: Employee): void {
-    console.log(employee);
+  saveEmployee(): void {
+    this.employeeService.save(this.employee);
+    this.router.navigate(['list']);
   }
 
   togglePhotoPreview(){

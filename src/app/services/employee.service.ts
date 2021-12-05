@@ -35,10 +35,14 @@ export class EmployeeService {
       confirmPassword: 'confirmPassword'
     },
   ];
-  
+
   constructor() { }
 
   findAll(): Employee[] {
     return this.employee
+  }
+
+  save(employees: Employee){
+    this.employee.push(employees);
   }
 }
