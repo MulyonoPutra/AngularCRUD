@@ -9,8 +9,9 @@ import { MaterialModule } from './utils/material.module';
 import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SelectRequiredValidatorDirective } from './shared/select-required-validator.directive';
 @NgModule({
-  declarations: [AppComponent, EmployeeListComponent, EmployeeCreateComponent],
+  declarations: [AppComponent, EmployeeListComponent, EmployeeCreateComponent, SelectRequiredValidatorDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,

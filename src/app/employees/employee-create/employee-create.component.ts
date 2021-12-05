@@ -28,14 +28,14 @@ export class EmployeeCreateComponent implements OnInit {
     phone: null!,
     contactPreferences: null!,
     dateOfBirth: null!,
-    department: null!,
+    department: '-1',
     isActive: null!,
     photo: null!,
   }
 
 
   constructor() {
-    this.datePickerColor()
+    this.datePickerColor();
   }
 
   datePickerColor() {
@@ -46,7 +46,7 @@ export class EmployeeCreateComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   saveEmployee(employee: Employee): void {
     console.log(employee);

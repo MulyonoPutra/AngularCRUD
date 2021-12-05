@@ -122,14 +122,14 @@
       </div>
       <br>
       <!-- Department -->
-      <div class="form-group" [class.has-error]="department.invalid && department.touched">
+      <div class="form-group"  [class.has-error]="department.touched && department.errors?.defaultSelected">
         <label for="department">Department</label>
-        <select class="form-select" aria-label="Default select example" name="department"
-          [(ngModel)]="employee.department" required #department="ngModel">
+        <select appSelectValidator class="form-select" aria-label="Default select example" name="department"
+          [(ngModel)]="employee.department"  #department="ngModel">
           <option disabled [ngValue]="null">Select Department</option>
           <option *ngFor="let dept of departments" [ngValue]="dept.name">{{dept.name}}</option>
         </select>
-          <span class="help-block" *ngIf="department.touched && department.invalid">
+          <span class="help-block" *ngIf="department.touched && department.errors?.defaultSelected">
             Department is required
           </span>
       </div>
