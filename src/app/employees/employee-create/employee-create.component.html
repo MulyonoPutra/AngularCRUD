@@ -89,9 +89,9 @@
             is Active
           </label>
         </div>
-          <span class="help-block" *ngIf="isActive.errors?.required && isActive.touched">
-            Is Active is required
-          </span>
+        <span class="help-block" *ngIf="isActive.errors?.required && isActive.touched">
+          Is Active is required
+        </span>
       </div>
       <br>
 
@@ -130,22 +130,23 @@
           <option disabled value="select">Select Department</option>
           <option *ngFor="let dept of departments" [value]="dept.name">{{dept.name}}</option>
         </select>
-          <span class="help-block" *ngIf="department.touched && department.errors?.defaultSelected">
-            Department is required
-          </span>
+        <span class="help-block" *ngIf="department.touched && department.errors?.defaultSelected">
+          Department is required
+        </span>
       </div>
       <br>
 
+      <!-- Password and Confirm Password -->
+      <div ngModelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && !confirmPassword.errors?.required">
         <div class="form-group" [class.has-error]="password.touched && password.invalid">
           <label for="password" class="control-label">Password</label>
           <input id="password" required type="text" class="form-control" name="password" [(ngModel)]="employee.password"
-            #password="ngModel">
+            #password="ngModel" (input)="confirmPassword.control.updateValueAndValidity()">
           <span class="help-block" *ngIf="password.touched && password.errors?.required">
             Password is required
           </span>
         </div>
-
-
+        <br>
         <div class="form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
           <label for="confirmPassword" class="control-label">Confirm Password</label>
           <input name="confirmPassword" appConfirmEqualsValidator="password" required id="confirmPassword" type="text"
@@ -154,10 +155,12 @@
             Confirm Password is required
           </span>
           <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
-                  !confirmPassword.errors?.required">
+                        !confirmPassword.errors?.required">
             Password and Confirm Password does not match
           </span>
         </div>
+      </div>
+
       <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Save</button>
     </div>
   </div>
