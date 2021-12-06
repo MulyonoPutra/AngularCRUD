@@ -1,6 +1,6 @@
 import {
   Component,
-  Input,
+  Input, Output, EventEmitter,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -20,10 +20,15 @@ export class EmployeeViewComponent implements OnInit {
 
   // Setter
   // Property setter is specific to a given property, so we only get changes of that specific property.
-  
+
+  constructor() { }
+
+  ngOnInit(): void { }
+
   private _employee!: Employee;
   private _employeeId!: number;
 
+  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
   set employeeId(value: number) {
@@ -45,10 +50,8 @@ export class EmployeeViewComponent implements OnInit {
     return this._employee
   }
 
-  constructor() { }
+  handleClick(){
+    this.notify.emit(this.employee.fullname);
+  }
 
-
-
-
-  ngOnInit(): void { }
 }
