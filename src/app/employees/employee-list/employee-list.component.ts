@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -8,16 +8,16 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./employee-list.component.scss'],
 })
 export class EmployeeListComponent implements OnInit {
-
   employees!: Employee[];
   employeeDisplay!: Employee;
   private arrayOfIndex: number = 1;
-  dataFromChild!: Employee;
 
-  constructor(private employee: EmployeeService) {}
+  @Input() employee!: Employee
+
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employees = this.employee.findAll();
+    this.employees = this.employeeService.findAll();
     this.employeeDisplay = this.employees[0];
   }
 
@@ -31,7 +31,6 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  handleNotify(event: Employee): void {
-    this.dataFromChild = event;
-  }
+
+
 }
