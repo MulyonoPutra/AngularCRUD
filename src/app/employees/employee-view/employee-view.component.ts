@@ -12,8 +12,9 @@ import { Employee } from 'src/app/models/employee';
   templateUrl: './employee-view.component.html',
   styleUrls: ['./employee-view.component.scss'],
 })
-export class EmployeeViewComponent implements OnInit {
+export class EmployeeViewComponent implements OnInit, OnChanges {
   private _employee!: Employee;
+  @Input() employeeId!: number;
 
   @Input()
   set employee(value: Employee) {
@@ -22,13 +23,23 @@ export class EmployeeViewComponent implements OnInit {
     console.log('Previous ' + this._employee ? this._employee?.fullname : 'null');
   }
 
-  get employee():Employee {
+  get employee(): Employee {
     return this._employee
   }
 
-  constructor() {}
+  constructor() { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const props of Object.keys(changes)) {
+
+      const change = changes[props];
+      const from = JSON.stringify(change.previousValue);
+      const to = JSON.stringify(change.currentValue);
+      console.log(props + ' changed from ' + from + ' to ' + to);
+    }
+  }
 
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
