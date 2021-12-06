@@ -17,6 +17,11 @@ export class EmployeeDetailsComponent implements OnInit {
     private employeeService: EmployeeService
   ) {}
 
+
+  // When to use snapshot over observable?
+  // Snapshot: if the route parameter value does not change and only want to read the initial route parameter value.
+  // Observable: if the route parameter value changes, and if you want to react and execute some code in response to that change
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this._id = +params.get('id')!;
