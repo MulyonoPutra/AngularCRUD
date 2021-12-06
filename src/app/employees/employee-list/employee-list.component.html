@@ -1,4 +1,6 @@
-<h1>{{dataFromChild}}</h1>
+<div *ngIf="dataFromChild">
+  <h1>{{dataFromChild?.fullname + ' ' + 'is ' + dataFromChild?.gender}}</h1>
+</div>
 
 <div class="panel panel-primary" *ngFor="let employee of employees">
 <app-employee-view [employee]="employee" (notify)="handleNotify($event)"></app-employee-view>

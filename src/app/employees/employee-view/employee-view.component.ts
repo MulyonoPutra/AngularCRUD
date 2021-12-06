@@ -28,7 +28,7 @@ export class EmployeeViewComponent implements OnInit {
   private _employee!: Employee;
   private _employeeId!: number;
 
-  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+  @Output() notify: EventEmitter<Employee> = new EventEmitter<Employee>();
 
   @Input()
   set employeeId(value: number) {
@@ -51,7 +51,7 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   handleClick(){
-    this.notify.emit(this.employee.fullname);
+    this.notify.emit(this.employee);
   }
 
 }

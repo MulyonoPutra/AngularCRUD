@@ -12,8 +12,8 @@ export class EmployeeListComponent implements OnInit {
   employees!: Employee[];
   employeeDisplay!: Employee;
   private arrayOfIndex: number = 1;
-  dataFromChild!: string;
-  
+  dataFromChild!: Employee;
+
   constructor(private employee: EmployeeService) {}
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  handleNotify(event: string): void {
+  handleNotify(event: Employee): void {
     this.dataFromChild = event;
   }
 }
