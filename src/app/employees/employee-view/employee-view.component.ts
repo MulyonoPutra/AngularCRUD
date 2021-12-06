@@ -12,18 +12,23 @@ import { Employee } from 'src/app/models/employee';
   templateUrl: './employee-view.component.html',
   styleUrls: ['./employee-view.component.scss'],
 })
-export class EmployeeViewComponent implements OnInit, OnChanges {
-  @Input() employee!: Employee;
+export class EmployeeViewComponent implements OnInit {
+  private _employee!: Employee;
+
+  @Input()
+  set employee(value: Employee) {
+    console.log('Current ' + value?.fullname);
+    this._employee = value
+    console.log('Previous ' + this._employee ? this._employee?.fullname : 'null');
+  }
+
+  get employee():Employee {
+    return this._employee
+  }
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges) { 
-    const previousEmployee = <Employee>changes.employee.previousValue;
-    const currentEmployee = <Employee>changes.employee.currentValue;
 
-    console.log('Previous : ' + (previousEmployee ? previousEmployee.fullname : 'NULL'));
-    console.log('Current : ' + currentEmployee.fullname);
-  }
 
   ngOnInit(): void {}
 }
