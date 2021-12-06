@@ -1,4 +1,7 @@
-<div class="panel panel-primary" *ngFor="let employee of employees">
+<!-- <div class="panel panel-primary" *ngFor="let employee of employees">
 <app-employee-view [employee]="employee"></app-employee-view>
   <br />
-</div>
+</div> -->
+<button class="btn btn-primary" (click)="nextEmployee()">View Next Employee</button>
+<br><br>
+<app-employee-view [employee]="employeeDisplay"></app-employee-view>
