@@ -7,7 +7,7 @@ import { Employee } from '../models/employee';
 export class EmployeeService {
   private employee: Employee[] = [
     {
-      id: '1',
+      id: 1,
       fullname: 'Mulyono Putra',
       gender: 'Male',
       email: 'mulyonoputra94@gmail.com',
@@ -21,7 +21,7 @@ export class EmployeeService {
       confirmPassword: 'confirmPassword'
     },
     {
-      id: '1',
+      id: 1,
       fullname: 'Devi Nurita Sari',
       gender: 'Female',
       email: 'devinurita@gmail.com',
