@@ -14,6 +14,7 @@ import { ConfirmEqualsValidatorDirective } from './shared/confirm-equals-validat
 import { EmployeeService } from './services/employee.service';
 import { EmployeeViewComponent } from './employees/employee-view/employee-view.component';
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
+import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employe
     SelectRequiredValidatorDirective,
     ConfirmEqualsValidatorDirective,
     EmployeeViewComponent,
+    EmployeeDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
 </h1>
 
 <div class="panel panel-primary" *ngFor="let employee of employees">
-  <div (click)="parentComponent.innerHTML = childComponent.getEmployeeNameAndGender()">
+  <div (click)="details(employee.id)" class="pointer">
     <app-employee-view [employee]="employee" #childComponent></app-employee-view>
   </div>
   <br />
