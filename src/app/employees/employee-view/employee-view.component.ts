@@ -12,15 +12,33 @@ import { Employee } from 'src/app/models/employee';
   templateUrl: './employee-view.component.html',
   styleUrls: ['./employee-view.component.scss'],
 })
-export class EmployeeViewComponent implements OnInit, OnChanges {
+export class EmployeeViewComponent implements OnInit {
+
+  // ngOnChanges
+  // We get all the changes instead of just the changes related to a single property
+  // useful when multiple properties changes
+
+  // Setter
+  // Property setter is specific to a given property, so we only get changes of that specific property.
+  
   private _employee!: Employee;
-  @Input() employeeId!: number;
+  private _employeeId!: number;
+
+
+  @Input()
+  set employeeId(value: number) {
+    console.log('changed from ' + JSON.stringify(this._employeeId) + ' to ' + value);
+    this._employeeId = value;
+  }
+
+  get employeeId(): number {
+    return this._employeeId;
+  }
 
   @Input()
   set employee(value: Employee) {
-    console.log('Current ' + value?.fullname);
+    console.log('changed from  ' + JSON.stringify(this._employee) + ' to ' + JSON.stringify(value));
     this._employee = value
-    console.log('Previous ' + this._employee ? this._employee?.fullname : 'null');
   }
 
   get employee(): Employee {
@@ -29,15 +47,6 @@ export class EmployeeViewComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    for (const props of Object.keys(changes)) {
-
-      const change = changes[props];
-      const from = JSON.stringify(change.previousValue);
-      const to = JSON.stringify(change.currentValue);
-      console.log(props + ' changed from ' + from + ' to ' + to);
-    }
-  }
 
 
 
