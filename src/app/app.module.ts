@@ -13,8 +13,16 @@ import { SelectRequiredValidatorDirective } from './shared/select-required-valid
 import { ConfirmEqualsValidatorDirective } from './shared/confirm-equals-validator.directive';
 import { EmployeeService } from './services/employee.service';
 import { EmployeeViewComponent } from './employees/employee-view/employee-view.component';
+import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
 @NgModule({
-  declarations: [AppComponent, EmployeeListComponent, EmployeeCreateComponent, SelectRequiredValidatorDirective, ConfirmEqualsValidatorDirective, EmployeeViewComponent],
+  declarations: [
+    AppComponent,
+    EmployeeListComponent,
+    EmployeeCreateComponent,
+    SelectRequiredValidatorDirective,
+    ConfirmEqualsValidatorDirective,
+    EmployeeViewComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,7 +31,7 @@ import { EmployeeViewComponent } from './employees/employee-view/employee-view.c
     FormsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
