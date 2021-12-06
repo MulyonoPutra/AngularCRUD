@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeeService {
   private employee: Employee[] = [
@@ -18,10 +18,10 @@ export class EmployeeService {
       isActive: true,
       photo: 'assets/images/mark.png',
       password: 'password',
-      confirmPassword: 'confirmPassword'
+      confirmPassword: 'confirmPassword',
     },
     {
-      id: 1,
+      id: 2,
       fullname: 'Devi Nurita Sari',
       gender: 'Female',
       email: 'devinurita@gmail.com',
@@ -32,17 +32,21 @@ export class EmployeeService {
       isActive: true,
       photo: 'assets/images/devi.png',
       password: 'password',
-      confirmPassword: 'confirmPassword'
+      confirmPassword: 'confirmPassword',
     },
   ];
 
-  constructor() { }
+  constructor() {}
 
   findAll(): Employee[] {
-    return this.employee
+    return this.employee;
   }
 
-  save(employees: Employee){
+  findById(id:number): Employee {
+    return this.employee.find(e => e.id === id)!;
+  }
+
+  save(employees: Employee) {
     this.employee.push(employees);
   }
 }
