@@ -61,6 +61,10 @@ export class EmployeeCreateComponent implements OnInit {
     this.router.navigate(['list']);
   }
 
+  reset(empForm: NgForm): void {
+    empForm.reset();
+  }
+
   togglePhotoPreview() {
     this.previewPhotos = !this.previewPhotos;
   }
