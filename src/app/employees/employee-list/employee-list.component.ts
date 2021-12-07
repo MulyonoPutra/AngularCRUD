@@ -11,8 +11,25 @@ import { EmployeeService } from 'src/app/services/employee.service';
 export class EmployeeListComponent implements OnInit {
   employees!: Employee[];
   employeeDisplay!: Employee;
+  filteredEmployee!: Employee[];
   private arrayOfIndex: number = 1;
-  searchTerm!: string;
+  private _searchTerm!: string;
+
+  get searchTerm() {
+    return this._searchTerm;
+  }
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.filteredEmployee = this.filterEmployees(value);
+  }
+
+  filterEmployees(search: string) {
+    return this.employees.filter(
+      (employee) =>
+        employee.fullname.toLowerCase().indexOf(search.toLowerCase()) !== -1
+    );
+  }
+
   @Input() employee!: Employee;
 
   constructor(
@@ -23,6 +40,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
     this.employees = this.employeeService.findAll();
     this.employeeDisplay = this.employees[0];
+    this.filteredEmployee = this.employees;
   }
 
   nextEmployee() {

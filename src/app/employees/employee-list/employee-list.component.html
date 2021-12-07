@@ -6,7 +6,7 @@
 
 </h1>
 
-<div class="panel panel-primary" *ngFor="let employee of employees | employeeFilter: searchTerm">
+<div class="panel panel-primary" *ngFor="let employee of filteredEmployee">
   <div (click)="details(employee.id)" class="pointer">
     <app-employee-view [employee]="employee" #childComponent></app-employee-view>
   </div>
