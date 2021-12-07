@@ -12,10 +12,13 @@ export class EmployeeListComponent implements OnInit {
   employees!: Employee[];
   employeeDisplay!: Employee;
   private arrayOfIndex: number = 1;
-
+  searchTerm!: string;
   @Input() employee!: Employee;
 
-  constructor(private employeeService: EmployeeService, private router: Router) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.employees = this.employeeService.findAll();

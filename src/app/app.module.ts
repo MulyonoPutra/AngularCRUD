@@ -15,6 +15,7 @@ import { EmployeeService } from './services/employee.service';
 import { EmployeeViewComponent } from './employees/employee-view/employee-view.component';
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
+import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { EmployeeDetailsComponent } from './employees/employee-details/employee-
     ConfirmEqualsValidatorDirective,
     EmployeeViewComponent,
     EmployeeDetailsComponent,
+    EmployeeFilterPipe,
   ],
   imports: [
     BrowserModule,
