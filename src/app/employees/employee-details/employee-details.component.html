@@ -1,13 +1,13 @@
 
 <h1>Details</h1>
 <div class="card">
-  <div class="card-header"></div>
+  <div class="card-header">{{ employee?.fullname }}</div>
   <div class="card-body">
     <h5 class="card-title">{{ employee?.fullname }}</h5>
     <p class="card-text">{{ employee?.email }}</p>
     <p class="card-text">{{ employee?.phone }}</p>
     <p class="card-text">{{ employee?.department }}</p>
-    <button class="btn btn-primary" routerLink="/list">Go back</button>&nbsp;
+    <a class="btn btn-primary" [routerLink]="['/list/', {id: employee?.id}]">Go back</a>&nbsp;
     <button class="btn btn-primary" (click)="viewNext()">Next Employee</button>
   </div>
 </div>

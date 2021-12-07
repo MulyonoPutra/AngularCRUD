@@ -1,5 +1,5 @@
-<div class="card">
-  <div class="card-header"></div>
+<div class="card" [class.panel-success]="selectedId === employee.id">
+  <div class="card-header">{{ employee?.fullname }}</div>
   <div class="card-body">
     <h5 class="card-title">{{ employee.fullname }}</h5>
     <p class="card-text">{{ employee.email }}</p>
