@@ -31,7 +31,9 @@ export class EmployeeDetailsComponent implements OnInit {
 
   viewNext(){
     this._id = this._id + 1;
-    this.router.navigate(['/details/' + this._id]);
+    this.router.navigate(['/details/' + this._id],{
+      queryParamsHandling:'preserve'
+    });
     console.log();
 
   }
