@@ -16,6 +16,7 @@ import { EmployeeViewComponent } from './employees/employee-view/employee-view.c
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
+import { ListResolverService } from './services/list-resolver.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,11 @@ import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
     FormsModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService],
+  providers: [
+    EmployeeService,
+    CreateEmployeeCanDeactivateGuardService,
+    ListResolverService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

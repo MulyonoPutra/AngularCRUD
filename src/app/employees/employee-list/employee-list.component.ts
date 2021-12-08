@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
-import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -18,10 +17,17 @@ export class EmployeeListComponent implements OnInit {
   @Input() employee!: Employee;
 
   constructor(
-    private employeeService: EmployeeService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+   this.employees = this.route.snapshot.data['employeeList'];
+    if (this.route.snapshot.queryParamMap.has('searchTerm')) {
+      this.searchTerm =
+        this.route.snapshot.queryParamMap.get('searchTerm')!;
+    } else {
+      this.filteredEmployee = this.employees;
+    }
+  }
 
   get searchTerm() {
     return this._searchTerm;
@@ -39,17 +45,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeService.findAll().subscribe(list => {
-      this.employees = list;
-      if (this.route.snapshot.queryParamMap.has('searchTerm')) {
-        this.searchTerm =
-          this.route.snapshot.queryParamMap.get('searchTerm')!;
-      } else {
-        this.filteredEmployee = this.employees;
-      }
-    });
-
-
   }
 
   nextEmployee() {
