@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -38,8 +40,8 @@ export class EmployeeService {
 
   constructor() {}
 
-  findAll(): Employee[] {
-    return this.employee;
+  findAll(): Observable<Employee[]> {
+    return of(this.employee).pipe(delay(2000));
   }
 
   findById(id:number): Employee {

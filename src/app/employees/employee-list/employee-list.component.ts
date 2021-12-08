@@ -9,11 +9,19 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./employee-list.component.scss'],
 })
 export class EmployeeListComponent implements OnInit {
+
   employees!: Employee[];
   employeeDisplay!: Employee;
   filteredEmployee!: Employee[];
   private arrayOfIndex: number = 1;
   private _searchTerm!: string;
+  @Input() employee!: Employee;
+
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   get searchTerm() {
     return this._searchTerm;
@@ -30,21 +38,18 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  @Input() employee!: Employee;
-
-  constructor(
-    private employeeService: EmployeeService,
-    private router: Router, private route: ActivatedRoute
-  ) {}
-
   ngOnInit(): void {
-    this.employees = this.employeeService.findAll();
+    this.employeeService.findAll().subscribe(list => {
+      this.employees = list;
+      if (this.route.snapshot.queryParamMap.has('searchTerm')) {
+        this.searchTerm =
+          this.route.snapshot.queryParamMap.get('searchTerm')!;
+      } else {
+        this.filteredEmployee = this.employees;
+      }
+    });
 
-    if (this.route.snapshot.queryParamMap.has('searchTerm')) {
-      this.searchTerm = this.route.snapshot.queryParamMap.get('searchTerm')!;
-    } else {
-      this.filteredEmployee = this.employees;
-    }
+
   }
 
   nextEmployee() {
@@ -59,7 +64,7 @@ export class EmployeeListComponent implements OnInit {
 
   details(employeeId: number) {
     this.router.navigate(['/details/' + employeeId], {
-      queryParams: { 'searchTerm': this.searchTerm, 'testParams': 'testValue'}
+      queryParams: { searchTerm: this.searchTerm, testParams: 'testValue' },
     });
   }
 }

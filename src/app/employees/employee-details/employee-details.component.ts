@@ -9,6 +9,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./employee-details.component.scss'],
 })
 export class EmployeeDetailsComponent implements OnInit {
+  
   employee!: Employee;
   private _id!: number;
   constructor(
