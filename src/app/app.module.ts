@@ -16,7 +16,7 @@ import { EmployeeViewComponent } from './employees/employee-view/employee-view.c
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
-import { ListResolverService } from './services/list-resolver.service';
+import { EmployeeListResolverService } from './services/list-resolver.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeDetailsGuardService } from './guards/employee-details-guard.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -44,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     EmployeeService,
     CreateEmployeeCanDeactivateGuardService,
-    ListResolverService,
+    EmployeeListResolverService,
     EmployeeDetailsGuardService,
   ],
   bootstrap: [AppComponent],

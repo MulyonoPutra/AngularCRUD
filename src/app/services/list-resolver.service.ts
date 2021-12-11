@@ -11,7 +11,7 @@ import { EmployeeService } from './employee.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ListResolverService implements Resolve<Employee[]> {
+export class EmployeeListResolverService implements Resolve<Employee[]> {
   constructor(private employeeService: EmployeeService) {}
 
   resolve(

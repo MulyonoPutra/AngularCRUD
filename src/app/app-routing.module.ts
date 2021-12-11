@@ -6,13 +6,13 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
 import { EmployeeDetailsGuardService } from './guards/employee-details-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ListResolverService } from './services/list-resolver.service';
+import { EmployeeListResolverService } from './services/list-resolver.service';
 
 const routes: Routes = [
   {
     path: 'list',
     component: EmployeeListComponent,
-    resolve: { employeeList: ListResolverService },
+    resolve: { employeeList: EmployeeListResolverService },
   },
   {
     path: 'details/:id',
