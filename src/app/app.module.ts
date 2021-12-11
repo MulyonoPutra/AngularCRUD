@@ -19,6 +19,7 @@ import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
 import { ListResolverService } from './services/list-resolver.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeDetailsGuardService } from './guards/employee-details-guard.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { EmployeeDetailsGuardService } from './guards/employee-details-guard.ser
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    HttpClientModule,
     BsDatepickerModule.forRoot(),
   ],
   providers: [

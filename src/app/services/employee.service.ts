@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, delay } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -34,10 +35,12 @@ export class EmployeeService {
     },
   ];
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   findAll(): Observable<Employee[]> {
-    return of(this.employee).pipe(delay(2000));
+    return this.httpClient
+      .get<Employee[]>('http://localhost:3000/employees')
+      .pipe(catchError(this.handleError));;
   }
 
   findById(id: number): Employee {
@@ -57,10 +60,19 @@ export class EmployeeService {
 
       this.employee.push(employee);
     } else {
-      const foundIndex = this.employee.findIndex(
-        (e) => e.id === employee.id
-      );
+      const foundIndex = this.employee.findIndex((e) => e.id === employee.id);
       this.employee[foundIndex] = employee;
     }
+  }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    if (errorResponse.error instanceof ErrorEvent) {
+      console.error('Client Side Error :', errorResponse.error.message);
+    } else {
+      console.error('Server Side Error :', errorResponse);
+    }
+    return throwError(
+      'There is a problem with the service.We are notified & working on it. Please try again later.'
+    );
   }
 }
