@@ -19,8 +19,6 @@ export class EmployeeService {
       department: 'Software Development',
       isActive: true,
       photo: 'assets/images/mark.png',
-      password: 'password',
-      confirmPassword: 'confirmPassword',
     },
     {
       id: 2,
@@ -33,8 +31,6 @@ export class EmployeeService {
       department: 'Digital Marketing',
       isActive: true,
       photo: 'assets/images/devi.png',
-      password: 'password',
-      confirmPassword: 'confirmPassword',
     },
   ];
 
@@ -44,11 +40,27 @@ export class EmployeeService {
     return of(this.employee).pipe(delay(2000));
   }
 
-  findById(id:number): Employee {
-    return this.employee.find(e => e.id === id)!;
+  findById(id: number): Employee {
+    return this.employee.find((e) => e.id === id)!;
   }
 
-  save(employees: Employee) {
-    this.employee.push(employees);
+  save(employee: Employee) {
+    if (employee.id === null) {
+      // reduce() method reduces the array to a single value. This method executes
+      // the provided function for each element of the array (from left-to-right)
+      // When we implement the server side service to save data to the database
+      // table, we do not have to compute the id, as the server will assing it
+      const maxId = this.employee.reduce(function (e1, e2) {
+        return e1.id > e2.id ? e1 : e2;
+      }).id;
+      employee.id = maxId + 1;
+
+      this.employee.push(employee);
+    } else {
+      const foundIndex = this.employee.findIndex(
+        (e) => e.id === employee.id
+      );
+      this.employee[foundIndex] = employee;
+    }
   }
 }

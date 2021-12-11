@@ -1,4 +1,4 @@
-<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(); employeeForm.reset()">
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm); employeeForm.reset()">
   <div class="card">
     <div class="card-header">Employee Create</div>
     <div class="card-body">
@@ -21,7 +21,7 @@
           <div class="form-check">
             <label class="form-check-label" for="contactPreference">
               Email
-              <input class="form-check-input ml-3" value="email" type="radio" name="contactPreference"
+              <input class="form-check-input ml-3" [required]="contactPreference.value=='Email'" type="radio" name="contactPreference"
                 #contactPreference="ngModel" id="contactPreference" [(ngModel)]="employee.contactPreferences">
             </label>
           </div>
@@ -29,7 +29,7 @@
           <div class="form-check">
             <label class="form-check-label" for="contactPreference">
               Phone
-              <input class="form-check-input" value="phone" type="radio" name="contactPreference" id="contactPreference"
+              <input class="form-check-input" [required]="contactPreference.value=='Phone'" type="radio" name="contactPreference" id="contactPreference"
                 [(ngModel)]="employee.contactPreferences">
             </label>
           </div>
@@ -62,14 +62,14 @@
         <div class="form-control">
           <div class="form-check">
             <label class="form-check-label" for="gender">
-              <input class="form-check-input" #gender="ngModel" value="male" type="radio" name="gender" id="gender"
+              <input class="form-check-input" #gender="ngModel" value="Male" type="radio" name="gender" id="gender"
                 [(ngModel)]="employee.gender">
               Male
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label" for="gender">
-              <input class="form-check-input" #gender="ngModel" value="female" type="radio" name="gender" id="gender"
+              <input class="form-check-input" #gender="ngModel" value="Female" type="radio" name="gender" id="gender"
                 [(ngModel)]="employee.gender">
               Female
             </label>
@@ -136,31 +136,6 @@
       </div>
       <br>
 
-      <!-- Password and Confirm Password -->
-      <div ngModelGroup="passwordGroup"
-        [class.has-error]="confirmPassword.touched && !confirmPassword.errors?.required">
-        <div class="form-group" [class.has-error]="password.touched && password.invalid">
-          <label for="password" class="control-label">Password</label>
-          <input id="password" required type="text" class="form-control" name="password" [(ngModel)]="employee.password"
-            #password="ngModel" (input)="confirmPassword.control.updateValueAndValidity()">
-          <span class="help-block" *ngIf="password.touched && password.errors?.required">
-            Password is required
-          </span>
-        </div>
-        <br>
-        <div class="form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
-          <label for="confirmPassword" class="control-label">Confirm Password</label>
-          <input name="confirmPassword" appConfirmEqualsValidator="password" required id="confirmPassword" type="text"
-            class="form-control" [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel">
-          <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
-            Confirm Password is required
-          </span>
-          <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
-                        !confirmPassword.errors?.required">
-            Password and Confirm Password does not match
-          </span>
-        </div>
-      </div>
       <br>
       <button type="button" class="btn btn-primary" (click)="reset(employeeForm)">Reset</button> &nbsp;
       <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Save</button>

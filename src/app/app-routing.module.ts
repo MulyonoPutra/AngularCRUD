@@ -20,7 +20,7 @@ const routes: Routes = [
     canActivate: [EmployeeDetailsGuardService],
   },
   {
-    path: 'create',
+    path: 'edit/:id',
     component: EmployeeCreateComponent,
     canDeactivate: [CreateEmployeeCanDeactivateGuardService],
   },
@@ -29,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

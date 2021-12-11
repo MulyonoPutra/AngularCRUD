@@ -1,6 +1,8 @@
 import {
   Component,
-  Input, Output, EventEmitter,
+  Input,
+  Output,
+  EventEmitter,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -14,7 +16,6 @@ import { Employee } from 'src/app/models/employee';
   styleUrls: ['./employee-view.component.scss'],
 })
 export class EmployeeViewComponent implements OnInit {
-
   selectedId!: number;
   private _employee!: Employee;
   private _employeeId!: number;
@@ -29,9 +30,6 @@ export class EmployeeViewComponent implements OnInit {
 
   @Input()
   set employeeId(value: number) {
-    console.log(
-      'changed from ' + JSON.stringify(this._employeeId) + ' to ' + value
-    );
     this._employeeId = value;
   }
 
@@ -41,12 +39,6 @@ export class EmployeeViewComponent implements OnInit {
 
   @Input()
   set employee(value: Employee) {
-    console.log(
-      'changed from  ' +
-        JSON.stringify(this._employee) +
-        ' to ' +
-        JSON.stringify(value)
-    );
     this._employee = value;
   }
 
@@ -64,10 +56,15 @@ export class EmployeeViewComponent implements OnInit {
     return this.employee.fullname + ' ' + this.employee.gender;
   }
 
-  view(){
-    this.router.navigate(['/details', this.employee.id], { queryParams: {
-      'searchTerm': this.searchTerm
-    }});
+  view() {
+    this.router.navigate(['/details', this.employee.id], {
+      queryParams: {
+        searchTerm: this.searchTerm,
+      },
+    });
+  }
 
+  edit() {
+    this.router.navigate(['/edit', this.employee.id]);
   }
 }
