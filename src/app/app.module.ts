@@ -17,6 +17,8 @@ import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employe
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeeFilterPipe } from './pipe/employee-filter.pipe';
 import { ListResolverService } from './services/list-resolver.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EmployeeDetailsGuardService } from './guards/employee-details-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { ListResolverService } from './services/list-resolver.service';
     EmployeeViewComponent,
     EmployeeDetailsComponent,
     EmployeeFilterPipe,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { ListResolverService } from './services/list-resolver.service';
     EmployeeService,
     CreateEmployeeCanDeactivateGuardService,
     ListResolverService,
+    EmployeeDetailsGuardService,
   ],
   bootstrap: [AppComponent],
 })

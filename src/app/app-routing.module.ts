@@ -4,6 +4,8 @@ import { EmployeeCreateComponent } from './employees/employee-create/employee-cr
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
 import { CreateEmployeeCanDeactivateGuardService } from './guards/create-employee-can-deactivate-guard.service';
+import { EmployeeDetailsGuardService } from './guards/employee-details-guard.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ListResolverService } from './services/list-resolver.service';
 
 const routes: Routes = [
@@ -12,17 +14,22 @@ const routes: Routes = [
     component: EmployeeListComponent,
     resolve: { employeeList: ListResolverService },
   },
-  { path: 'details/:id', component: EmployeeDetailsComponent },
+  {
+    path: 'details/:id',
+    component: EmployeeDetailsComponent,
+    canActivate: [EmployeeDetailsGuardService],
+  },
   {
     path: 'create',
     component: EmployeeCreateComponent,
     canDeactivate: [CreateEmployeeCanDeactivateGuardService],
   },
   { path: '', redirectTo: '/list', pathMatch: 'full' },
+  { path: '404', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
