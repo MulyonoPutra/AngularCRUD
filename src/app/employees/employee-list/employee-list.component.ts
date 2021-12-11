@@ -57,9 +57,5 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  details(employeeId: number) {
-    this.router.navigate(['/details/' + employeeId], {
-      queryParams: { searchTerm: this.searchTerm, testParams: 'testValue' },
-    });
-  }
+
 }

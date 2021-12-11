@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
 
 @Component({
@@ -14,10 +14,12 @@ import { Employee } from 'src/app/models/employee';
   styleUrls: ['./employee-view.component.scss'],
 })
 export class EmployeeViewComponent implements OnInit {
-  
+
   selectedId!: number;
   private _employee!: Employee;
   private _employeeId!: number;
+  @Input() searchTerm!: string;
+
   // ngOnChanges
   // We get all the changes instead of just the changes related to a single property
   // useful when multiple properties changes
@@ -52,7 +54,7 @@ export class EmployeeViewComponent implements OnInit {
     return this._employee;
   }
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.selectedId = +this.route.snapshot.paramMap.get('id')!;
@@ -60,5 +62,12 @@ export class EmployeeViewComponent implements OnInit {
 
   getEmployeeNameAndGender(): string {
     return this.employee.fullname + ' ' + this.employee.gender;
+  }
+
+  view(){
+    this.router.navigate(['/details', this.employee.id], { queryParams: {
+      'searchTerm': this.searchTerm
+    }});
+
   }
 }
