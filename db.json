@@ -1,0 +1,28 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "fullname": "Mulyono Putra",
+      "gender": "Male",
+      "email": "mulyonoputra94@gmail.com",
+      "phone": "081289900099",
+      "contactPreferences": "Email",
+      "dateOfBirth": "1994/01/27",
+      "department": "Software Development",
+      "isActive": true,
+      "photo": "assets/images/mark.png"
+    },
+    {
+      "id": 1,
+      "fullname": "Annisya",
+      "gender": "Female",
+      "email": "annisya@gmail.com",
+      "phone": "081289900099",
+      "contactPreferences": "Email",
+      "dateOfBirth": "2001/06/22",
+      "department": "Healty",
+      "isActive": true,
+      "photo": "assets/images/mark.png"
+    }
+  ]
+}
