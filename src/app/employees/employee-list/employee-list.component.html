@@ -2,7 +2,7 @@
   <input type="text" class="form-control" placeholder="Search By Name" style="width:300px" [(ngModel)]="searchTerm" />
 </div>
 
-
+<br>
 <div class="panel panel-primary" *ngFor="let employee of filteredEmployee">
   <app-employee-view [employee]="employee" [searchTerm]="searchTerm" (notifyDelete)="onDeleteNotification($event)"></app-employee-view>
   <br />

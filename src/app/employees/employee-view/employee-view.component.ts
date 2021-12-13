@@ -77,7 +77,7 @@ export class EmployeeViewComponent implements OnInit {
 
   delete() {
     this.employeeService.delete(this.employee.id).subscribe(
-      () => console.log(`Employee with ID = ${this.employee.id} Deleted`),
+      () => console.log(`Employee with ID: ${this.employee.id} Deleted`),
       (err) => console.log(err)
     );
     this.notifyDelete.emit(this.employee.id);
