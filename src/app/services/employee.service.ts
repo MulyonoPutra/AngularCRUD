@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -40,29 +40,36 @@ export class EmployeeService {
   findAll(): Observable<Employee[]> {
     return this.httpClient
       .get<Employee[]>('http://localhost:3000/employees')
-      .pipe(catchError(this.handleError));;
+      .pipe(catchError(this.handleError));
   }
 
   findById(id: number): Employee {
     return this.employee.find((e) => e.id === id)!;
   }
 
-  save(employee: Employee) {
-    if (employee.id === null) {
-      // reduce() method reduces the array to a single value. This method executes
-      // the provided function for each element of the array (from left-to-right)
-      // When we implement the server side service to save data to the database
-      // table, we do not have to compute the id, as the server will assing it
-      const maxId = this.employee.reduce(function (e1, e2) {
-        return e1.id > e2.id ? e1 : e2;
-      }).id;
-      employee.id = maxId + 1;
+  save(employees: Employee): Observable<Employee> {
+    if (employees.id === null) {
+      // const maxId = this.listEmployees.reduce(function (e1, e2) {
+      //     return (e1.id > e2.id) ? e1 : e2;
+      // }).id;
+      // employee.id = maxId + 1;
+      // employee.id = 0;
 
-      this.employee.push(employee);
+      // this.listEmployees.push(employee);
+      return this.httpClient
+        .post<Employee>('http://localhost:3000/employees', employees, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        })
+        .pipe(catchError(this.handleError));
     } else {
-      const foundIndex = this.employee.findIndex((e) => e.id === employee.id);
-      this.employee[foundIndex] = employee;
+      const foundIndex = this.employee.findIndex((e) => e.id === employees.id);
+
+      this.employee[foundIndex] = employees;
     }
+
+    return of(employees).pipe(delay(2000));
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

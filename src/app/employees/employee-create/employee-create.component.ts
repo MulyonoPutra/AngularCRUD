@@ -80,7 +80,7 @@ export class EmployeeCreateComponent implements OnInit {
         photo: null!,
       };
       // Resetting the form, resets any previous validation errors
-      this.createEmployeeForm.reset();
+      this.createEmployeeForm?.reset();
       this.panelTitle = 'Create Employee';
     } else {
       this.employee = Object.assign({}, this.employeeService.findById(id));
@@ -89,10 +89,17 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   saveEmployee(empForm: NgForm): void {
-    const newEmployee = Object.assign({}, this.employee);
-    this.employeeService.save(newEmployee);
-    empForm.reset();
-    this.router.navigate(['list']);
+    this.employeeService.save(this.employee).subscribe(
+      (data: Employee) => {
+        // log the employee object after the post is completed
+        console.log(data);
+        empForm?.reset();
+        this.router.navigate(['list']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   reset(empForm: NgForm): void {
