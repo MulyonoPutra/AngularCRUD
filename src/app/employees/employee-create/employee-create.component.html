@@ -104,23 +104,6 @@
           [(ngModel)]="employee.dateOfBirth" [bsConfig]="datepickerConfig">
       </div>
 
-      <!-- Photo -->
-      <div class="form-group">
-        <label for="photo">
-          Photo
-        </label>
-        <input class="form-control" type="text" id="photo" name="photo" [(ngModel)]="employee.photo">
-      </div>
-      <br>
-      <div>
-        <button type="button" (click)="togglePhotoPreview()" class="btn btn-primary">{{previewPhotos ? 'Hide' : 'Show'}}
-          Preview</button>
-      </div>
-      <br>
-      <div class="form-group">
-        <img src="photo" alt="photo" height="200" width="200" *ngIf="previewPhotos">
-      </div>
-      <br>
 
       <!-- Department -->
       <div class="form-group" [class.has-error]="department.touched && department.errors?.defaultSelected">

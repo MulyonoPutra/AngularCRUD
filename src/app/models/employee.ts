@@ -8,5 +8,4 @@ export interface Employee {
   dateOfBirth: Date;
   department: string;
   isActive: boolean;
-  photo: string;
 }

@@ -32,7 +32,6 @@ export class EmployeeCreateComponent implements OnInit {
     dateOfBirth: null!,
     department: 'select',
     isActive: null!,
-    photo: null!,
   };
 
   constructor(
@@ -77,7 +76,6 @@ export class EmployeeCreateComponent implements OnInit {
         dateOfBirth: null!,
         department: null!,
         isActive: null!,
-        photo: null!,
       };
       // Resetting the form, resets any previous validation errors
       this.createEmployeeForm?.reset();
