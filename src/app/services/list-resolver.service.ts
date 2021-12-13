@@ -4,20 +4,23 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Employee } from '../models/employee';
+import { Observable, of } from 'rxjs';
 import { EmployeeService } from './employee.service';
+import { catchError, map } from 'rxjs/operators';
+import { Employee } from '../models/employee';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class EmployeeListResolverService implements Resolve<Employee[]> {
+@Injectable()
+export class EmployeeListResolverService
+  implements Resolve<Employee[] | string>
+{
   constructor(private employeeService: EmployeeService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Employee[] | Observable<Employee[]> | Promise<Employee[]> {
-    return this.employeeService.findAll();
+  ): Observable<Employee[]> {
+    return this.employeeService.findAll().pipe(
+      catchError((error: any) => of(error))
+    );
   }
 }
