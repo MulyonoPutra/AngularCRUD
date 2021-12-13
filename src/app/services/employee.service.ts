@@ -35,6 +35,8 @@ export class EmployeeService {
     },
   ];
 
+  baseUrl = 'http://localhost:3000/employees';
+
   constructor(private httpClient: HttpClient) {}
 
   findAll(): Observable<Employee[]> {
@@ -43,33 +45,36 @@ export class EmployeeService {
       .pipe(catchError(this.handleError));
   }
 
-  findById(id: number): Employee {
-    return this.employee.find((e) => e.id === id)!;
+  findById(id: number): Observable<Employee> {
+    return this.httpClient
+      .get<Employee>(`${this.baseUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
-  save(employees: Employee): Observable<Employee> {
-    if (employees.id === null) {
-      // const maxId = this.listEmployees.reduce(function (e1, e2) {
-      //     return (e1.id > e2.id) ? e1 : e2;
-      // }).id;
-      // employee.id = maxId + 1;
-      // employee.id = 0;
+  save(employee: Employee): Observable<Employee> {
+    return this.httpClient
+      .post<Employee>(this.baseUrl, employee, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-      // this.listEmployees.push(employee);
-      return this.httpClient
-        .post<Employee>('http://localhost:3000/employees', employees, {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-          }),
-        })
-        .pipe(catchError(this.handleError));
-    } else {
-      const foundIndex = this.employee.findIndex((e) => e.id === employees.id);
+  update(employee: Employee): Observable<void> {
+    return this.httpClient
+      .put<void>(`${this.baseUrl}/${employee.id}`, employee, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
-      this.employee[foundIndex] = employees;
-    }
-
-    return of(employees).pipe(delay(2000));
+  delete(id: number): Observable<void> {
+    return this.httpClient
+      .delete<void>(`${this.baseUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

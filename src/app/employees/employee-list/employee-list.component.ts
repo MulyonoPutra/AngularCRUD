@@ -9,7 +9,6 @@ import { ResolvedEmployeeList } from 'src/app/models/resolved-employee-list.mode
   styleUrls: ['./employee-list.component.scss'],
 })
 export class EmployeeListComponent implements OnInit {
-
   employees!: Employee[];
   employeeDisplay!: Employee;
   filteredEmployee!: Employee[];
@@ -18,20 +17,17 @@ export class EmployeeListComponent implements OnInit {
   @Input() employee!: Employee;
   error!: string;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-   const resolvedEmployeeList: Employee [] | string = this.route.snapshot.data['employeeList'];
-   if (Array.isArray(resolvedEmployeeList)) {
-     this.employees = resolvedEmployeeList;
-   } else {
-    this.error = resolvedEmployeeList;
-   }
+  constructor(private router: Router, private route: ActivatedRoute) {
+    const resolvedEmployeeList: Employee[] | string =
+      this.route.snapshot.data['employeeList'];
+    if (Array.isArray(resolvedEmployeeList)) {
+      this.employees = resolvedEmployeeList;
+    } else {
+      this.error = resolvedEmployeeList;
+    }
 
     if (this.route.snapshot.queryParamMap.has('searchTerm')) {
-      this.searchTerm =
-        this.route.snapshot.queryParamMap.get('searchTerm')!;
+      this.searchTerm = this.route.snapshot.queryParamMap.get('searchTerm')!;
     } else {
       this.filteredEmployee = this.employees;
     }
@@ -52,8 +48,7 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   nextEmployee() {
     if (this.arrayOfIndex <= 2) {
@@ -65,5 +60,10 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-
+  onDeleteNotification(id: number) {
+    const i = this.filteredEmployee.findIndex((e) => e.id === id);
+    if (i !== -1) {
+      this.filteredEmployee.splice(i, 1);
+    }
+  }
 }

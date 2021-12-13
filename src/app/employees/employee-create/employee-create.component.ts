@@ -83,23 +83,39 @@ export class EmployeeCreateComponent implements OnInit {
       this.createEmployeeForm?.reset();
       this.panelTitle = 'Create Employee';
     } else {
-      this.employee = Object.assign({}, this.employeeService.findById(id));
+      this.employeeService.findById(id).subscribe(
+        (employee) => {
+          this.employee = employee;
+        },
+        (err: any) => console.log(err)
+      );
       this.panelTitle = 'Edit Employee';
     }
   }
 
   saveEmployee(empForm: NgForm): void {
-    this.employeeService.save(this.employee).subscribe(
-      (data: Employee) => {
-        // log the employee object after the post is completed
-        console.log(data);
-        empForm?.reset();
-        this.router.navigate(['list']);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    if (this.employee.id == null) {
+      this.employeeService.save(this.employee).subscribe(
+        (data: Employee) => {
+          console.log(data);
+          empForm?.reset();
+          this.router.navigate(['list']);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.employeeService.update(this.employee).subscribe(
+        () => {
+          empForm?.reset();
+          this.router.navigate(['list']);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   reset(empForm: NgForm): void {

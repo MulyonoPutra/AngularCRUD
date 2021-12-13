@@ -4,7 +4,7 @@
 
 
 <div class="panel panel-primary" *ngFor="let employee of filteredEmployee">
-  <app-employee-view [employee]="employee" [searchTerm]="searchTerm"></app-employee-view>
+  <app-employee-view [employee]="employee" [searchTerm]="searchTerm" (notifyDelete)="onDeleteNotification($event)"></app-employee-view>
   <br />
 </div>
 

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-employee-view',
@@ -20,6 +21,8 @@ export class EmployeeViewComponent implements OnInit {
   private _employee!: Employee;
   private _employeeId!: number;
   @Input() searchTerm!: string;
+  @Output() notifyDelete: EventEmitter<number> = new EventEmitter<number>();
+  confirmDelete = false;
 
   // ngOnChanges
   // We get all the changes instead of just the changes related to a single property
@@ -46,7 +49,11 @@ export class EmployeeViewComponent implements OnInit {
     return this._employee;
   }
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {}
 
   ngOnInit(): void {
     this.selectedId = +this.route.snapshot.paramMap.get('id')!;
@@ -66,5 +73,13 @@ export class EmployeeViewComponent implements OnInit {
 
   edit() {
     this.router.navigate(['/edit', this.employee.id]);
+  }
+
+  delete() {
+    this.employeeService.delete(this.employee.id).subscribe(
+      () => console.log(`Employee with ID = ${this.employee.id} Deleted`),
+      (err) => console.log(err)
+    );
+    this.notifyDelete.emit(this.employee.id);
   }
 }
