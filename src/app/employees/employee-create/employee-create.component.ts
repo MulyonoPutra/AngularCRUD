@@ -14,7 +14,6 @@ import { NgForm } from '@angular/forms';
 export class EmployeeCreateComponent implements OnInit {
   @ViewChild('employeeForm') public createEmployeeForm!: NgForm;
   datepickerConfig!: Partial<BsDatepickerConfig>;
-  previewPhotos: boolean = false;
   panelTitle!: string;
   departments: Department[] = [
     { id: '1', name: 'Software Development' },
@@ -60,11 +59,13 @@ export class EmployeeCreateComponent implements OnInit {
     });
   }
 
+  /**
+    If the id is 0, we want to create a new employee. So we intialise the employee
+    property with an Employee object with all properties set to null. The template
+    is bound to this employee property so all the form fields are displayed blank,
+    to enter details of a new employee we want to create
+   */
   getEmployee(id: number) {
-    // If the id is 0, we want to create a new employee. So we intialise the employee
-    // property with an Employee object with all properties set to null. The template
-    // is bound to this employee property so all the form fields are displayed blank,
-    // to enter details of a new employee we want to create
     if (id === 0) {
       this.employee = {
         id: null!,
@@ -93,34 +94,38 @@ export class EmployeeCreateComponent implements OnInit {
 
   saveEmployee(empForm: NgForm): void {
     if (this.employee.id == null) {
-      this.employeeService.save(this.employee).subscribe(
-        (data: Employee) => {
-          console.log(data);
-          empForm?.reset();
-          this.router.navigate(['list']);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      this.createEmployee(empForm);
     } else {
-      this.employeeService.update(this.employee).subscribe(
-        () => {
-          empForm?.reset();
-          this.router.navigate(['list']);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+      this.updateEmployee(empForm);
     }
+  }
+
+  createEmployee(empForm: NgForm): void {
+    this.employeeService.save(this.employee).subscribe(
+      (data: Employee) => {
+        console.log(data);
+        empForm?.reset();
+        this.router.navigate(['list']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateEmployee(empForm: NgForm): void {
+    this.employeeService.update(this.employee).subscribe(
+      () => {
+        empForm?.reset();
+        this.router.navigate(['list']);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   reset(empForm: NgForm): void {
     empForm.reset();
-  }
-
-  togglePhotoPreview() {
-    this.previewPhotos = !this.previewPhotos;
   }
 }
